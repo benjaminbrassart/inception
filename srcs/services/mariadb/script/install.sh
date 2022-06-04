@@ -21,4 +21,4 @@ else
 		--verbose
 fi
 
-exec mysqld --verbose --user=mysql
+exec mysqld -v -u mysql
