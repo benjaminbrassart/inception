@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/04 20:29:11 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/04 20:34:03 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ clean:
 	@$(COMPOSE) down -v
 
 fclean:
-	@$(COMPOSE) down -v --rmi all
+	@$(COMPOSE) down -v --rmi all --remove-orphans
 
 status: ps
 
