@@ -7,4 +7,4 @@ COPY script/install.sh /tmp/install.sh
 RUN apk -U upgrade
 RUN apk add --no-cache mariadb
 
-ENTRYPOINT [ "/tmp/install.sh" ]
+ENTRYPOINT [ "sh", "/tmp/install.sh" ]
