@@ -16,6 +16,13 @@ services:
     ports:
       - "8080:80"
       - "443:443"
+  mariadb:
+    container_name: inception_mariadb
+    build: services/mariadb
+    volumes:
+      - ${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw
+    ports:
+      - "3306"
     networks:
       - net_inception
 
