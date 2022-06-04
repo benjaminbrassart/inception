@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/04 17:31:13 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/04 20:29:11 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,20 @@ DIR_SRC = srcs
 COMPOSE = docker-compose --project-directory $(DIR_SRC)
 COMPOSE_ACTIONS = build start stop restart ps kill logs
 
-all: build
-	$(COMPOSE) up
+all:
+	@$(COMPOSE) up --build --no-start
 
 clean:
-	$(COMPOSE) down -v --rmi all
+	@$(COMPOSE) down -v
+
+fclean:
+	@$(COMPOSE) down -v --rmi all
+
+status: ps
+
+re: fclean all
 
 $(COMPOSE_ACTIONS):
-	$(COMPOSE) $@
+	@$(COMPOSE) $@
 
 .PHONY: $(COMPOSE_ACTIONS) all clean
