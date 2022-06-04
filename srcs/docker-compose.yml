@@ -10,6 +10,14 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/wordpress:rw"
+  nginx:
+    container_name: inception_nginx
+    build: services/nginx
+    ports:
+      - "8080:80"
+      - "443:443"
+    networks:
+      - net_inception
 
 networks:
   net_inception: {}
