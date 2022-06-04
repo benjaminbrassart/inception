@@ -12,7 +12,6 @@ RUN openssl req -x509 -newkey rsa:4096 \
 	-subj '/C=FR/ST=Île-de-France/L=Paris/O=42/CN=bbrassar.42.fr'
 
 COPY conf/bbrassar.conf /etc/nginx/http.d/default.conf
-# COPY conf/bbrassar.conf /etc/nginx/bbrassar.conf
 COPY html /var/www/html
 
 ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
