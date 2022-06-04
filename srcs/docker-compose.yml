@@ -1,6 +1,14 @@
 version: '3.8'
 
-services: {}
+services:
+  nginx:
+    container_name: inception_nginx
+    build: services/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - net_inception
 
 networks:
   net_inception: {}
