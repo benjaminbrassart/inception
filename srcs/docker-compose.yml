@@ -5,4 +5,11 @@ services:
     container_name: inception_mariadb
     build: services/mariadb
     volumes:
-      - "${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw"
+      - ${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw
+    ports:
+      - "3306"
+    networks:
+      - net_inception
+
+networks:
+  net_inception: {}
