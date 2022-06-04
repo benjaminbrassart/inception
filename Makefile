@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/04 16:16:47 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/04 16:27:01 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ all: build
 
 clean:
 	$(COMPOSE) down -v --rmi all
+
+status: ps
 
 $(COMPOSE_ACTIONS):
 	$(COMPOSE) $@
