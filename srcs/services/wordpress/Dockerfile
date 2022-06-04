@@ -22,4 +22,7 @@ RUN curl -Lso - https://wordpress.org/latest.tar.gz | \
 
 RUN chown -R www-data:www-data /var/www/wordpress
 
+RUN rm -rf /etc/php7/php
+COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
+
 ENTRYPOINT [ "php-fpm7", "-F" ]
