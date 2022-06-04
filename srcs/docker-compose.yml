@@ -1,5 +1,16 @@
 version: '3.8'
+
 services:
   mariadb:
     container_name: inception_mariadb
     build: services/mariadb
+    volumes:
+      - v_database:/var/lib/mysql:rw
+
+volumes:
+  v_database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${VOLUMES_LOCATION}/v_database
