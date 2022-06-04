@@ -27,19 +27,6 @@ MYSQL_INSTALL_OPT="
 	--verbose
 "
 
-#	--bind-address=0.0.0.0
-#		allow every address to connect
-#	-u mysql
-#		the system user account who will run the server,
-#		mandatory when running as root
-#	-v
-#		more information logging
-MYSQLD_OPT="
-	--bind-address=0.0.0.0
-	-u mysql
-	-v
-"
-
 # abort when an error occurs
 set -e
 
@@ -59,6 +46,3 @@ fi
 # delete default configs
 > /etc/my.cnf
 rm -rf /etc/my.cnf.d
-
-# replace the current shell process with the mysql server
-exec mysqld $MYSQLD_OPT
