@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/04 17:33:00 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/04 17:54:33 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,10 @@ all:
 
 clean:
 	@$(COMPOSE) down -v
+	@docker volume rm -f v_database
 
-fclean:
-	@$(COMPOSE) down -v --rmi all
+fclean: clean
+	@$(COMPOSE) down --rmi all
 
 status: ps
 
