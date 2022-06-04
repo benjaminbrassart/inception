@@ -1,5 +1,46 @@
 #!/bin/sh
 
+#	--auth-root-authentication-method=socket
+#		allow root client login via unix socket only (local terminal)
+#
+#	--basedir=/usr
+#		where mysql will be installed (mainly for `bin` and `lib`)
+#
+#	--datadir=/var/lib/mysql
+#		where mysql data will be stored (useful when mounting docker volumes)
+#
+#	--skip-test-db
+#		avoid creating test database and anonymous user
+#
+#	--user=mysql
+#		system user account which will be used to perform the installation
+#
+#	--verbose
+#		more information logging
+#
+MYSQL_INSTALL_OPT="
+	--auth-root-authentication-method=socket
+	--basedir=/usr
+	--datadir=/var/lib/mysql
+	--skip-test-db
+	--user=mysql
+	--verbose
+"
+
+#	--bind-address=0.0.0.0
+#		allow every address to connect
+#	-u mysql
+#		the system user account who will run the server,
+#		mandatory when running as root
+#	-v
+#		more information logging
+MYSQLD_OPT="
+	--bind-address=0.0.0.0
+	-u mysql
+	-v
+"
+
+# abort when an error occurs
 set -e
 
 if [ ! -d /run/mysqld ]; then
@@ -12,13 +53,12 @@ if [ -d /var/lib/mysql/mysql ]; then
 	printf -- "MariaDB already installed, skipping\n"
 else
 	# https://mariadb.com/kb/en/mysql_install_db/#options
-	mysql_install_db								\
-		--auth-root-authentication-method=socket	\
-		--basedir=/usr								\
-		--datadir=/var/lib/mysql					\
-		--skip-test-db								\
-		--user=mysql								\
-		--verbose
+	mysql_install_db $MYSQL_INSTALL_OPT
 fi
 
-exec mysqld -v -u mysql
+# delete default configs
+> /etc/my.cnf
+rm -rf /etc/my.cnf.d
+
+# replace the current shell process with the mysql server
+exec mysqld $MYSQLD_OPT
