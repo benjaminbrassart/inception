@@ -1,3 +1,8 @@
 FROM alpine:3.16
 
-RUN pkg upgrade -U
+COPY scripts/install.sh /tmp/install.sh
+
+RUN apk -U upgrade
+RUN apk add --no-cache mariadb
+
+ENTRYPOINT [ "/tmp/install.sh" ]
