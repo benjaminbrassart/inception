@@ -22,7 +22,6 @@ RUN apk -U upgrade && apk add --no-cache \
 
 RUN rm -rf /etc/php7/php-fpm.d
 COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
-COPY conf/php.ini /etc/php7/php.ini
 
 RUN mkdir -p /var/www
 
