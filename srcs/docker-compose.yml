@@ -25,6 +25,8 @@ services:
       - "3306"
     networks:
       - net_inception
+    volumes:
+      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
     restart: always
 
 networks:
