@@ -16,6 +16,13 @@ if [ ! -d "$WP_PATH" ]; then
 		--dbhost="inception_mariadb" \
 		--debug
 	wp db create
+	wp core install \
+		--url="bbrassar.42.fr"
+		--title="$WP_TITLE"
+		--admin_user="$WP_ADMIN_USER" \
+		--admin_password="$WP_ADMIN_PASSWORD" \
+		--admin_email="$WP_ADMIN_EMAIL" \
+		--skip-email
 	# TODO add user accounts
 	# TODO install plugins and themes
 
