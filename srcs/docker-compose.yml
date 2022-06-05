@@ -5,7 +5,7 @@ services:
     container_name: inception_wordpress
     build: services/wordpress
     ports:
-      - "9000"
+      - "9000:9000"
     networks:
       - net_inception
     volumes:
