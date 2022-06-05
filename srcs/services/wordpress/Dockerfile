@@ -33,4 +33,4 @@ RUN curl -Lso - https://wordpress.org/latest.tar.gz | \
 	mv /var/www/wordpress /var/www/html && \
 	chown -R www-data:www-data /var/www/html
 
-ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf", "-c", "/etc/php7/php.ini" ]
+ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf" ]
