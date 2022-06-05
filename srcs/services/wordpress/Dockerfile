@@ -12,17 +12,25 @@ RUN adduser -SDH www-data
 
 # https://make.wordpress.org/hosting/handbook/server-environment/
 RUN apk -U upgrade && apk add --no-cache \
-	curl php7 php7-fpm php7-pdo
+	php7 php7-fpm php7-mysqlnd php7-json \
+	php7-curl php7-dom php7-exif php7-fileinfo \
+	php7-imagick php7-mbstring php7-openssl \
+	php7-xml php7-zip php7-iconv php7-intl \
+	php7-simplexml php7-sodium php7-xmlreader \
+	php7-zlib php7-ssh2 php7-ftp php7-sockets \
+	php7-session curl imagemagick
+
+RUN rm -rf /etc/php7/php-fpm.d
+COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
+COPY conf/php.ini /etc/php7/php.ini
 
 RUN mkdir -p /var/www
 
 # download and extract wordpress at the same time
+# TODO let script handle that
 RUN curl -Lso - https://wordpress.org/latest.tar.gz | \
-	tar xvzf - -C /var/www
+	tar xvzf - -C /var/www && \
+	mv /var/www/wordpress /var/www/html && \
+	chown -R www-data:www-data /var/www/html
 
-RUN chown -R www-data:www-data /var/www/wordpress
-
-RUN rm -rf /etc/php7/php
-COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
-
-ENTRYPOINT [ "php-fpm7", "-F" ]
+ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf", "-c", "/etc/php7/php.ini" ]
