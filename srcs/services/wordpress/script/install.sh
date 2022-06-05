@@ -15,8 +15,7 @@ if [ ! -d "$WP_PATH" ]; then
 		--dbpass="$WP_DB_PASSWORD" \
 		--dbhost="inception_mariadb" \
 		--debug
-	# TODO create db
-	# TODO install
+	wp db create
 	# TODO add user accounts
 	# TODO install plugins and themes
 
