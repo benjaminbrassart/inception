@@ -10,6 +10,7 @@ services:
       - "3306"
     networks:
       - net_inception
+    restart: always
 
 networks:
   net_inception: {}
