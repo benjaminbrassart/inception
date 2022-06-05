@@ -3,6 +3,8 @@ FROM alpine:3.15
 
 LABEL maintainer="bbrassar@student.42.fr"
 
+ARG WPCLI_URL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
 # create a user that will run php-fpm
 #  options:
 #   -S -> create a system account
@@ -25,11 +27,10 @@ COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
 
 RUN mkdir -p /var/www
 
-# download and extract wordpress at the same time
-# TODO let script handle that
-RUN curl -Lso - https://wordpress.org/latest.tar.gz | \
-	tar xvzf - -C /var/www && \
-	mv /var/www/wordpress /var/www/html && \
-	chown -R www-data:www-data /var/www/html
+# https://wp-cli.org/
+RUN curl -Lo /usr/bin/wp ${WPCLI_URL} && chmod +x /usr/bin/wp
 
-ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf" ]
+# download and extract wordpress at the same time
+
+# ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf" ]
+ENTRYPOINT [ "sh", "script/install.sh" ]
