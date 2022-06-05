@@ -3,7 +3,7 @@ FROM alpine:3.15
 
 LABEL maintainer="bbrassar@student.42.fr"
 
-ARG WPCLI_URL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+ENV WPCLI_URL=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
 # create a user that will run php-fpm
 #  options:
