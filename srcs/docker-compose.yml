@@ -9,13 +9,21 @@ services:
     networks:
       - net_inception
     volumes:
-      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/wordpress:rw"
+      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
+    restart: always
+
   nginx:
     container_name: inception_nginx
     build: services/nginx
     ports:
       - "8080:80"
       - "443:443"
+    networks:
+      - net_inception
+    volumes:
+      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
+    restart: always
+
   mariadb:
     container_name: inception_mariadb
     build: services/mariadb
