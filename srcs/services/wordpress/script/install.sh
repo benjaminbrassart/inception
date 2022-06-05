@@ -8,7 +8,13 @@ if [ ! -d "$WP_PATH" ]; then
 	wp core download --path="$WP_PATH"
 	cd "$WP_PATH"
 
-	# TODO create config
+	# https://developer.wordpress.org/cli/commands/config/create/
+	wp config create \
+		--dbname="$WP_DB_NAME" \
+		--dbuser="$WP_DB_USER" \
+		--dbpass="$WP_DB_PASSWORD" \
+		--dbhost="inception_mariadb" \
+		--debug
 	# TODO create db
 	# TODO install
 	# TODO add user accounts
