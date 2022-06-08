@@ -10,7 +10,12 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
-    restart: always
+    restart: on-failure:2
+    env_file:
+      - .env
+    depends_on:
+      mariadb:
+        condition: service_healthy
 
   nginx:
     container_name: inception_nginx
@@ -23,6 +28,10 @@ services:
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
     restart: always
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
 
   mariadb:
     container_name: inception_mariadb
@@ -33,9 +42,15 @@ services:
       - "3306"
     networks:
       - net_inception
-    volumes:
-      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
     restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 1s
+      retries: 5
+      start_period: 2s
 
 networks:
   net_inception: {}
