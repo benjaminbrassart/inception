@@ -3,19 +3,22 @@
 WP_PATH='/var/www/html'
 
 set -e
+set -x
 
-if [ ! -d "$WP_PATH" ]; then
+if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
+	rm -rf "$WP_PATH"/*
+
 	wp core download --path="$WP_PATH"
+
 	cd "$WP_PATH"
 
-	# https://developer.wordpress.org/cli/commands/config/create/
 	wp config create \
 		--dbname="$WP_DB_NAME" \
 		--dbuser="$WP_DB_USER" \
 		--dbpass="$WP_DB_PASSWORD" \
 		--dbhost="inception_mariadb" \
 		--debug
-	wp db create
+	wp db create #! database already created
 	wp core install \
 		--url="bbrassar.42.fr"
 		--title="$WP_TITLE"
