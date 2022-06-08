@@ -5,7 +5,7 @@ LABEL maintainer="bbrassar@student.42.fr"
 COPY script/run.sh /tmp/run.sh
 COPY script/install.sh /tmp/install.sh
 
-RUN apk -U upgrade && apk add --no-cache mariadb
+RUN apk -U upgrade && apk add --no-cache mariadb mariadb-client
 
 # we are force to use a script that will run after
 # starting the container, because installing mysql

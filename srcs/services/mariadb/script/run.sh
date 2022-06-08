@@ -11,8 +11,8 @@ sh /tmp/install.sh
 #		more information logging
 MYSQLD_OPT="
 	--bind-address=0.0.0.0
+	--disable-skip-networking
 	-u mysql
-	-v
 "
 
 # replace the current shell process with the mysql server
