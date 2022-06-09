@@ -33,6 +33,7 @@ set -e
 # print what the hell is going on
 set -x
 
+# socket repository
 if [ ! -d /run/mysqld ]; then
 	mkdir /run/mysqld
 	chown mysql:mysql /run/mysqld
@@ -45,12 +46,17 @@ else
 	# https://mariadb.com/kb/en/mysql_install_db/#options
 	mysql_install_db $MYSQL_INSTALL_OPT
 
+	# create empty init.sql
 	> $init_file
+	# FLUSH PRIVILEGES is important, can't remember why though
 	echo "FLUSH PRIVILEGES;" >> $init_file
+	# create new user
 	echo "CREATE USER '$WP_DB_USER'@'%' IDENTIFIED VIA mysql_native_password USING PASSWORD('$WP_DB_PASSWORD');" >> $init_file
+	# give all permissions to the new user
 	echo "GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'%';" >> $init_file
-
+	# make request
 	mysqld --user=mysql --bootstrap < $init_file
+	# delete init.sql
 	rm -f "$init_file"
 fi
 
