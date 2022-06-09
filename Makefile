@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/06 09:41:48 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/09 05:35:27 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ restart: stop start
 status: ps
 
 re: fclean all
+
+set-host:
+	@echo "127.0.0.1 bbrassar.42.fr" | tee -a /etc/hosts
 
 $(COMPOSE_ACTIONS):
 	$(COMPOSE) $@
