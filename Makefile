@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/09 05:36:45 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/09 16:48:17 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,22 +19,32 @@ COMPOSE_ACTIONS = start stop ps kill logs
 
 all: build
 
+# build and create containers, without starting them
 build:
 	$(COMPOSE) up --build --no-start
 
+# clear volumes
 prune:
 	rm -rf $(VOLUMES_LOCATION)
 
+# clear and remove volumes
 clean: prune
 	$(COMPOSE) down -v
 
+# clear and remove content, delete images
 fclean: prune
 	$(COMPOSE) down -v --rmi all --remove-orphans
 
+# stop and start containers
+#
+# we use this instead of the default `docker-compose restart`
+# because it does not respect the start order
 restart: stop start
 
+# check the containers status
 status: ps
 
+# rebuild images, volumes and containers
 re: fclean all
 
 set-host:
