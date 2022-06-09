@@ -10,7 +10,7 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
-    # restart: on-failure:2
+    restart: always
     env_file:
       - .env
     depends_on:
