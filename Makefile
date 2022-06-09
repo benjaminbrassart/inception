@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2022/06/09 05:35:27 by bbrassar         ###   ########.fr        #
+#    Updated: 2022/06/09 05:36:45 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,4 +43,4 @@ set-host:
 $(COMPOSE_ACTIONS):
 	$(COMPOSE) $@
 
-.PHONY: $(COMPOSE_ACTIONS) all clean
+.PHONY: $(COMPOSE_ACTIONS) all build prune clean fclean restart status re set-host
