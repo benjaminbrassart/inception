@@ -26,7 +26,11 @@ if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 		--admin_password="$WP_ADMIN_PASSWORD" \
 		--admin_email="$WP_ADMIN_EMAIL" \
 		--skip-email
-	# TODO add user accounts
+	wp user create \
+		"$WP_REGULAR_USER" \
+		"$WP_REGULAR_EMAIL" \
+		--user_pass="$WP_REGULAR_PASSWORD" \
+		--porcelain
 	# TODO install plugins and themes
 
 	cd -
