@@ -14,7 +14,7 @@ RUN adduser -SDH www-data
 
 # https://make.wordpress.org/hosting/handbook/server-environment/
 RUN apk -U upgrade && apk add --no-cache \
-	php7 php7-fpm php7-mysqlnd php7-json \
+	php7 php7-fpm php7-mysqli php7-json \
 	php7-curl php7-dom php7-exif php7-fileinfo \
 	php7-imagick php7-mbstring php7-openssl \
 	php7-xml php7-zip php7-iconv php7-intl \

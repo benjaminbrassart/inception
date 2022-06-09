@@ -18,10 +18,10 @@ if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 		--dbpass="$WP_DB_PASSWORD" \
 		--dbhost="inception_mariadb" \
 		--debug
-	wp db create #! database already created
+	wp db create
 	wp core install \
-		--url="bbrassar.42.fr"
-		--title="$WP_TITLE"
+		--url="bbrassar.42.fr" \
+		--title="$WP_TITLE" \
 		--admin_user="$WP_ADMIN_USER" \
 		--admin_password="$WP_ADMIN_PASSWORD" \
 		--admin_email="$WP_ADMIN_EMAIL" \
