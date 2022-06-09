@@ -1,9 +1,11 @@
 #!/bin/sh
 
-WP_PATH='/var/www/html'
+WP_PATH='/var/www/html/wordpress'
 
 set -e
 set -x
+
+mkdir -p "$WP_PATH"
 
 if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 	rm -rf "$WP_PATH"/*
@@ -20,7 +22,7 @@ if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 		--debug
 	wp db create
 	wp core install \
-		--url="bbrassar.42.fr" \
+		--url="bbrassar.42.fr/wordpress" \
 		--title="$WP_TITLE" \
 		--admin_user="$WP_ADMIN_USER" \
 		--admin_password="$WP_ADMIN_PASSWORD" \
