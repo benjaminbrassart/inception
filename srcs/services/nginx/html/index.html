@@ -1,3 +1,4 @@
+<!-- inspired by https://startbootstrap.com/previews/resume -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Inception</title>
+	<title>Portfolio &ndash; Benjamin Brassart</title>
 	<!-- google fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,137 +21,9 @@
 	<!-- bootstrap icons css -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 	<!-- /bootstrap icons css -->
-	<style>
-		:root {
-			--color-primary: #eeeeee;
-			--color-secondary: #668696;
-			--color-title: #e7e7e7;
-			--color-subtitle: #888888;
-
-			--color-sidebar: #175b7e;
-			--color-background: #0d161a;
-		}
-
-		* {
-			font-family: 'Roboto', sans-serif !important;
-		}
-
-		.heading {
-			min-height: 100vh;
-			padding: 1rem;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.heading .heading-content {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			width: 100% !important;
-		}
-
-		.heading .title {
-			color: var(--color-title);
-			text-transform: uppercase;
-			font-weight: bold;
-			font-size: 2rem;
-			padding-bottom: 4rem;
-		}
-
-		.heading .title-about {
-			color: var(--color-title);
-			text-transform: uppercase;
-			font-weight: bolder;
-			font-size: 4rem;
-		}
-
-		.heading .subtitle-about {
-			text-transform: uppercase;
-			font-size: 2rem;
-			color: var(--color-subtitle);
-		}
-
-		.heading .subtitle {
-			text-transform: uppercase;
-			font-weight: bold;
-			text-align: center;
-			font-size: 1.7rem;
-			padding-bottom: 2rem;
-			color: var(--color-subtitle);
-		}
-
-		.heading .subtitle:not(:first-of-type) {
-			padding-top: 2rem;
-		}
-
-		.skill-img {
-			height: 64px;
-			filter: grayscale(1);
-			transition-duration: 150ms;
-			margin: 0 0.4rem;
-		}
-
-		.skill-img:hover {
-			filter: grayscale(0);
-		}
-
-		hr {
-			width: 100%;
-		}
-
-		#navbar-example2 {
-			width: 280px;
-			height: 100vh;
-			background-color: var(--color-sidebar);
-			border-right: 1px solid var(--color-sidebar);
-
-			display: flex;
-			flex-shrink: 0;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-		}
-
-		.nav-item .nav-link {
-			color: var(--color-secondary);
-			text-transform: uppercase;
-		}
-
-		.nav-item .nav-link.active,
-		.nav-item .nav-link:hover {
-			color: var(--color-primary);
-			background: none;
-		}
-
-		#resume-content {
-			background-color: var(--color-background);
-		}
-
-		p {
-			color: var(--color-subtitle);
-		}
-
-		.formation-name,
-		.formation-school,
-		.experience-name,
-		.experience-company
-		{
-			color: var(--color-title);
-			font-size: 1.4rem;
-			text-transform: uppercase;
-		}
-
-		.formation-location,
-		.formation-description,
-		.experience-location,
-		.experience-description
-		{
-			display: block;
-			color: var(--color-subtitle);
-		}
-	</style>
+	<!-- portfolio css -->
+	<link rel="stylesheet" href="portfolio.css">
+	<!-- /portfolio css -->
 </head>
 
 <body>
@@ -182,6 +55,14 @@
 				<div class="heading-content">
 					<h1 class="title-about">Benjamin Brassart</h1>
 					<h1 class="subtitle-about">Computer science student</h1>
+					<div class="mt-5">
+						<a href="https://www.linkedin.com/in/benjaminbrassart/" class="btn-social" target="_blank">
+							<i class="bi-linkedin"></i>
+						</a>
+						<a href="https://github.com/benjaminbrassart/" class="btn-social" target="_blank">
+							<i class="bi-github"></i>
+						</a>
+					</div>
 				</div>
 			</div>
 			<hr>
@@ -192,7 +73,7 @@
 						<div class="flex-grow-1">
 							<h4 class="experience-name">Web developer (Intern)</h4>
 							<h4 class="experience-company">3DMAP</h4>
-							<span class="experience-location">93430, Villetaneuse, France</span>
+							<span class="experience-location">Villetaneuse, France</span>
 							<span class="experience-description mt-3">
 								<ul>
 									<li>Revamp and redesign an admin panel with Vue.js and Vuetify</li>
@@ -235,7 +116,7 @@
 						<div class="flex-grow-1">
 							<h4 class="formation-school">42 Paris</h4>
 							<h4 class="formation-name">&ndash;</h4>
-							<span class="formation-location">75017, Paris, France</span>
+							<span class="formation-location">Paris, France</span>
 							<span class="formation-description">Web development / System programming</span>
 						</div>
 						<div class="flex-shrink-0">
@@ -250,7 +131,7 @@
 							<h4 class="formation-name">
 								<abbr title="Associate Degree in Computer Science">BTS SIO</abbr>
 							</h4>
-							<span class="formation-location">75013, Paris, France</span>
+							<span class="formation-location">Paris, France</span>
 							<span class="formation-description">Web development</span>
 						</div>
 						<div class="flex-shrink-0">
@@ -265,7 +146,7 @@
 							<h4 class="formation-name">
 								<abbr title="High School Diploma">Baccalauréat STI2D</abbr>
 							</h4>
-							<span class="formation-location">75019, Paris, France</span>
+							<span class="formation-location">Paris, France</span>
 						</div>
 						<div class="flex-shrink-0">
 							<span class="formation-dates">
@@ -304,7 +185,7 @@
 				<h4 class="title">Interests</h4>
 				<div class="heading-content">
 					<div class="">
-						<p>Besides programming, I like listening to music, cooking, and watching animation movies.</p>
+						<p>Besides programming, I enjoy listening to music, cooking, and watching animated movies.</p>
 					</div>
 				</div>
 			</div>

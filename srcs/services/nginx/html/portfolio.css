@@ -1,0 +1,147 @@
+:root {
+	--color-primary: #eeeeee;
+	--color-secondary: #668696;
+	--color-title: #e7e7e7;
+	--color-subtitle: #888888;
+
+	--color-sidebar: #175b7e;
+	--color-background: #0d161a;
+}
+
+* {
+	font-family: 'Roboto', sans-serif !important;
+}
+
+.heading {
+	min-height: 100vh;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.heading .heading-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100% !important;
+}
+
+.heading .title {
+	color: var(--color-title);
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 2rem;
+	padding-bottom: 4rem;
+}
+
+.heading .title-about {
+	color: var(--color-title);
+	text-transform: uppercase;
+	font-weight: bolder;
+	font-size: 4rem;
+}
+
+.heading .subtitle-about {
+	text-transform: uppercase;
+	font-size: 2rem;
+	color: var(--color-subtitle);
+}
+
+.heading .subtitle {
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: center;
+	font-size: 1.7rem;
+	padding-bottom: 2rem;
+	color: var(--color-subtitle);
+}
+
+.heading .subtitle:not(:first-of-type) {
+	padding-top: 2rem;
+}
+
+.skill-img {
+	height: 64px;
+	filter: grayscale(1);
+	transition-duration: 150ms;
+	margin: 0 0.4rem;
+}
+
+.skill-img:hover {
+	filter: grayscale(0);
+}
+
+hr {
+	width: 100%;
+}
+
+#navbar-example2 {
+	width: 280px;
+	height: 100vh;
+	background-color: var(--color-sidebar);
+	border-right: 1px solid var(--color-sidebar);
+
+	display: flex;
+	flex-shrink: 0;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.nav-item .nav-link {
+	color: var(--color-secondary);
+	text-transform: uppercase;
+}
+
+.nav-item .nav-link.active,
+.nav-item .nav-link:hover {
+	color: var(--color-primary);
+	background: none;
+}
+
+#resume-content {
+	background-color: var(--color-background);
+}
+
+p {
+	color: var(--color-subtitle);
+}
+
+.formation-name,
+.formation-school,
+.experience-name,
+.experience-company
+{
+	color: var(--color-title);
+	font-size: 1.4rem;
+	text-transform: uppercase;
+}
+
+.formation-location,
+.formation-description,
+.experience-location,
+.experience-description
+{
+	display: block;
+	color: var(--color-subtitle);
+}
+
+body {
+	overflow-y: hidden;
+}
+
+.btn-social {
+	display: inline-block;
+	margin: 0 1rem;
+	flex-direction: row;
+	color: white;
+	font-size: 2rem;
+	transition-duration: 150ms;
+	text-decoration: none;
+}
+
+.btn-social:hover {
+	color: var(--color-sidebar);
+}
