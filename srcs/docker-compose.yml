@@ -16,6 +16,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      redis:
+        condition: service_healthy
 
   nginx:
     container_name: inception_nginx
@@ -51,6 +53,23 @@ services:
       timeout: 1s
       retries: 5
       start_period: 2s
+
+  redis:
+    container_name: inception_redis
+    build: services/bonus/redis
+    ports:
+      - "6379"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "redis-cli", "PING"]
+      interval: 1s
+      timeout: 1s
+      retries: 5
+      start_period: 1s
 
 networks:
   net_inception: {}
