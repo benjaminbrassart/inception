@@ -58,4 +58,4 @@ if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 	cd -
 fi
 
-exec php-fpm7 -F -y /etc/php7/php-fpm.conf
+exec php-fpm7 -R -F -y /etc/php7/php-fpm.conf
