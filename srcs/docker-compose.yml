@@ -33,6 +33,7 @@ services:
       - .env
     depends_on:
       - wordpress
+      - grafana
 
   mariadb:
     container_name: inception_mariadb
@@ -73,6 +74,8 @@ services:
   grafana:
     container_name: inception_grafana
     build: services/bonus/grafana
+    volumes:
+      - ${VOLUMES_LOCATION}/v_prometheus:/var/lib/grafana:rw
     ports:
       - "3000"
     networks:
@@ -84,6 +87,8 @@ services:
   prometheus:
     container_name: inception_prometheus
     build: services/bonus/prometheus
+    volumes:
+      - ${VOLUMES_LOCATION}/v_prometheus:/var/lib/prometheus:rw
     ports:
       - "9090"
     networks:
