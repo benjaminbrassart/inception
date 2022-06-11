@@ -51,6 +51,10 @@ if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 	wp config set WP_REDIS_READ_TIMEOUT 1 --raw
 	wp config set WP_REDIS_DATABASE false --raw
 
+	if [ -n "$WP_THEME" ]; then
+		wp theme install "$WP_THEME" --activate
+	fi
+
 	cd -
 fi
 
