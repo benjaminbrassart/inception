@@ -23,7 +23,6 @@ services:
     container_name: inception_nginx
     build: services/nginx
     ports:
-      - "8080:80"
       - "443:443"
     networks:
       - net_inception
@@ -92,6 +91,19 @@ services:
     restart: always
     env_file:
       - .env
+
+  node_exporter:
+    container_name: inception_node_exporter
+    build: services/bonus/node_exporter
+    ports:
+      - "9100"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - /:/rootfs:ro,rslave
 
   # https://github.com/grafana/grafana
   # https://github.com/prometheus/prometheus
