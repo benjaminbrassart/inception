@@ -125,9 +125,5 @@ services:
     volumes:
       - /:/rootfs:ro,rslave
 
-  # https://github.com/grafana/grafana
-  # https://github.com/prometheus/prometheus
-  # https://github.com/grafana/loki
-
 networks:
   net_inception: {}
