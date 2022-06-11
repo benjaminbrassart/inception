@@ -82,6 +82,17 @@ services:
     env_file:
       - .env
 
+  prometheus:
+    container_name: inception_prometheus
+    build: services/bonus/prometheus
+    ports:
+      - "9090"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+
   # https://github.com/grafana/grafana
   # https://github.com/prometheus/prometheus
   # https://github.com/grafana/loki
