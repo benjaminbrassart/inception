@@ -16,4 +16,15 @@ if [ ! -f "$ADMINER_DIR/adminer.php" ]; then
 	curl -L "$LOGIN_SERVERS_URL" -o "$ADMINER_DIR/plugins/login-servers.php"
 fi
 
+# forced to do this contraption because we can't copy directly to a volume
+for file in /tmp/html/*; do
+	file_basename="$(basename "$file")"
+	volume_file="/var/www/html/$file_basename"
+
+	if [ ! -f "$volume_file" ] || [ "$file" -nt "$volume_file" ]; then
+		printf -- "$file_basename has changed, copying\n"
+		cp "$file" "$volume_file"
+	fi
+done
+
 exec nginx -g 'daemon off;'

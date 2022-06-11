@@ -14,6 +14,7 @@ RUN openssl req -x509 -newkey rsa:4096 \
 COPY script/run.sh /tmp/run.sh
 COPY php/adminer/index.php /tmp/index.php
 COPY conf/bbrassar.conf /etc/nginx/http.d/default.conf
-COPY html /var/www/html
+
+COPY html /tmp/html
 
 ENTRYPOINT [ "sh", "/tmp/run.sh" ]
