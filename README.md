@@ -17,3 +17,10 @@ https://stackoverflow.com/questions/10175812/how-to-generate-a-self-signed-ssl-c
 https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm#Usingthe-subjSwitch
 
 https://www.shellhacks.com/create-csr-openssl-without-prompt-non-interactive/
+
+## Things to know
+
+### Docker
+
+The `HEALTHCHECK` instruction checks whether a container is healthy (e.g. ready to operate) every x time.
+However, it does **not** stop once the container is healthy, and continues to check as long as it is alive.
