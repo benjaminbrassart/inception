@@ -20,8 +20,8 @@ RUN apk -U upgrade && apk add --no-cache \
 	php7-xml php7-zip php7-iconv php7-intl \
 	php7-simplexml php7-sodium php7-xmlreader \
 	php7-zlib php7-ssh2 php7-ftp php7-sockets \
-	php7-session php7-phar curl imagemagick \
-	mariadb-client
+	php7-session php7-phar php7-tokenizer \
+	curl imagemagick mariadb-client redis
 
 RUN rm -rf /etc/php7/php-fpm.d
 COPY conf/php-fpm.conf /etc/php7/php-fpm.conf

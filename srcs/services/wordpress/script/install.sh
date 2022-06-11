@@ -7,6 +7,8 @@ set -x
 
 mkdir -p "$WP_PATH"
 
+export WP_CLI_ALLOW_ROOT=1
+
 if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 	rm -rf "$WP_PATH"/*
 
@@ -33,7 +35,21 @@ if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 		"$WP_REGULAR_EMAIL" \
 		--user_pass="$WP_REGULAR_PASSWORD" \
 		--porcelain
-	# TODO install plugins and themes
+
+	# https://fr.wordpress.org/plugins/redis-cache/
+	wp plugin install redis-cache
+	wp plugin activate redis-cache
+	wp plugin update redis-cache
+
+	# https://github.com/rhubarbgroup/redis-cache/wiki/WP-CLI-Commands
+	wp redis enable
+
+	# https://github.com/rhubarbgroup/redis-cache/wiki/Connection-Parameters
+	wp config set WP_REDIS_HOST inception_redis
+	wp config set WP_REDIS_PORT 6379 --raw
+	wp config set WP_REDIS_TIMEOUT 1 --raw
+	wp config set WP_REDIS_READ_TIMEOUT 1 --raw
+	wp config set WP_REDIS_DATABASE false --raw
 
 	cd -
 fi
