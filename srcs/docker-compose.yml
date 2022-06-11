@@ -71,6 +71,21 @@ services:
       retries: 5
       start_period: 1s
 
+  ftp:
+    container_name: inception_ftp
+    build: services/bonus/ftp
+    volumes:
+      - ${VOLUMES_LOCATION}/v_wordpress/wordpress:/srv:rw
+    ports:
+      - "20-21:20-21"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+    depends_on:
+      - wordpress
+
   grafana:
     container_name: inception_grafana
     build: services/bonus/grafana
