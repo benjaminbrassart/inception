@@ -49,10 +49,10 @@ services:
       - .env
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 5s
+      interval: 2s
       timeout: 1s
       retries: 5
-      start_period: 2s
+      start_period: 5s
 
   redis:
     container_name: inception_redis
@@ -66,7 +66,7 @@ services:
       - .env
     healthcheck:
       test: ["CMD", "redis-cli", "PING"]
-      interval: 1s
+      interval: 5s
       timeout: 1s
       retries: 5
       start_period: 1s
