@@ -130,6 +130,31 @@ services:
     volumes:
       - /:/rootfs:ro,rslave
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+  loki:
+    container_name: inception_loki
+    build: services/bonus/loki
+    ports:
+      - "3100:3100"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+    # volumes:
+    #   - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+
+  promtail:
+    container_name: inception_promtail
+    build: services/bonus/promtail
+    ports:
+      - "9080:9080"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
 
 networks:
   net_inception: {}
