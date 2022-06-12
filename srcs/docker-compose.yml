@@ -90,7 +90,7 @@ services:
     container_name: inception_grafana
     build: services/bonus/grafana
     volumes:
-      - ${VOLUMES_LOCATION}/v_prometheus:/var/lib/grafana:rw
+      - ${VOLUMES_LOCATION}/v_grafana:/var/lib/grafana:rw
     ports:
       - "3000"
     networks:
