@@ -6,6 +6,12 @@ set -e
 set -x
 
 mkdir -p "$WP_PATH"
+mkdir -p /var/log/php7
+
+for file in access error; do
+	touch /var/log/php7/$file.log
+	chmod 644 /var/log/php7/$file.log
+done
 
 export WP_CLI_ALLOW_ROOT=1
 

@@ -8,6 +8,8 @@ ADMINER_URL='https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4
 ADMINER_PLUGIN_URL='https://raw.githubusercontent.com/vrana/adminer/master/plugins/plugin.php'
 LOGIN_SERVERS_URL='https://raw.githubusercontent.com/vrana/adminer/master/plugins/login-servers.php'
 
+mkdir -p /var/log/nginx
+
 if [ ! -f "$ADMINER_DIR/adminer.php" ]; then
 	mkdir -p "$ADMINER_DIR/plugins"
 	cp /tmp/index.php "$ADMINER_DIR/index.php"
