@@ -16,3 +16,20 @@ scrape_configs:
     labels:
       job: varlogs
       __path__: /var/log/**/*.log
+  pipeline_stages:
+  - match:
+    selector: '{job="nginx"}'
+    stages:
+    - regex:
+      expression: '^(?P<remote_addr>[\w\.]+) - (?P<remote_user>[^ ]*) \[(?P<time_local>.*)\] "(?P<method>[^ ]*) (?P<request>[^ ]*) (?P<protocol>[^ ]*)" (?P<status>[\d]+) (?P<body_bytes_sent>[\d]+) "(?P<http_referer>[^"]*)" "(?P<http_user_agent>[^"]*)"?'
+    - labels:
+      remote_addr: {}
+      remote_user: {}
+      time_local: {}
+      method: {}
+      request: {}
+      protocol: {}
+      status: {}
+      body_bytes_sent: {}
+      http_referer: {}
+      http_user_agent: {}
