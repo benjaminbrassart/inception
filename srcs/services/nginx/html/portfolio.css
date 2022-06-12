@@ -112,7 +112,8 @@ p {
 .formation-name,
 .formation-school,
 .experience-name,
-.experience-company
+.experience-company,
+.formation-description
 {
 	color: var(--color-title);
 	font-size: 1.4rem;
@@ -120,7 +121,6 @@ p {
 }
 
 .formation-location,
-.formation-description,
 .experience-location,
 .experience-description
 {
