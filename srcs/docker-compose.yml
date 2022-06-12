@@ -10,6 +10,7 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     restart: always
     env_file:
       - .env
@@ -28,6 +29,7 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     restart: always
     env_file:
       - .env
@@ -40,6 +42,7 @@ services:
     build: services/mariadb
     volumes:
       - ${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "3306"
     networks:
@@ -91,6 +94,7 @@ services:
     build: services/bonus/grafana
     volumes:
       - ${VOLUMES_LOCATION}/v_grafana:/var/lib/grafana:rw
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "3000"
     networks:
@@ -104,6 +108,7 @@ services:
     build: services/bonus/prometheus
     volumes:
       - ${VOLUMES_LOCATION}/v_prometheus:/var/lib/prometheus:rw
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "9090"
     networks:
@@ -124,6 +129,7 @@ services:
       - .env
     volumes:
       - /:/rootfs:ro,rslave
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
 
 networks:
   net_inception: {}
