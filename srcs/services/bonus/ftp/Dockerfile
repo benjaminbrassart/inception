@@ -1,7 +1,9 @@
 FROM alpine:3.16
 
-RUN apk -U upgrade && apk add --no-cache vsftpd
+RUN apk -U upgrade && apk add --no-cache proftpd proftpd-utils
+RUN mkdir -p /run/proftpd
 
-COPY conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY conf/proftpd.conf /etc/proftpd/proftpd.conf
+COPY script/run.sh /tmp/run.sh
 
-ENTRYPOINT [ "vsftpd", "/etc/vsftpd/vsftpd.conf" ]
+ENTRYPOINT [ "sh", "/tmp/run.sh" ]

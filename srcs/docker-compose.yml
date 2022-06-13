@@ -79,15 +79,14 @@ services:
     build: services/bonus/ftp
     volumes:
       - ${VOLUMES_LOCATION}/v_wordpress/wordpress:/srv:rw
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
-      - "20-21:20-21"
+      - "21:21"
     networks:
       - net_inception
     restart: always
     env_file:
       - .env
-    depends_on:
-      - wordpress
 
   grafana:
     container_name: inception_grafana
