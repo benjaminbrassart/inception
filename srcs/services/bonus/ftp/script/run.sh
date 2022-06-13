@@ -41,4 +41,4 @@ ftpasswd \
 $FTP_PASSWORD
 EOF
 
-exec proftpd -n -d10
+exec proftpd -n -d10 2>&1 | tee -a /var/log/proftpd/proftpd.log
