@@ -60,6 +60,8 @@ services:
   redis:
     container_name: inception_redis
     build: services/bonus/redis
+    volumes:
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "6379"
     networks:
