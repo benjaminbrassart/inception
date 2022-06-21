@@ -1,8 +1,8 @@
 FROM alpine:edge
 
-ENV LOKI_NAME=loki-linux-amd64
-ENV LOKI_VER=2.5.0
-ENV LOKI_URI=https://github.com/grafana/loki/releases/download/v${LOKI_VER}/${LOKI_NAME}.zip
+ARG LOKI_NAME=loki-linux-amd64
+ARG LOKI_VER=2.5.0
+ARG LOKI_URI=https://github.com/grafana/loki/releases/download/v${LOKI_VER}/${LOKI_NAME}.zip
 
 RUN apk -U upgrade && apk add --no-cache curl unzip
 
