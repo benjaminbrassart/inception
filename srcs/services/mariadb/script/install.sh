@@ -1,7 +1,11 @@
 #!/bin/sh
 
-#	--auth-root-authentication-method=socket
-#		allow root client login via unix socket only (local terminal)
+# This script is made to install MariaDB default databases and users.
+# It only exists because Docker volumes are mounted at runtime, not
+# when building the container.
+
+#	--auth-root-authentication-method=normal
+#		force root the authenticate with a password
 #
 #	--basedir=/usr
 #		where mysql will be installed (mainly for `bin` and `lib`)
@@ -26,16 +30,10 @@ MYSQL_INSTALL_OPT="
 	--user=mysql
 "
 
-init_file=/tmp/init.sql
+set -e -x
 
-# abort when an error occurs
-set -e
-# print what the hell is going on
-set -x
-
-# socket repository
 if [ ! -d /run/mysqld ]; then
-	mkdir /run/mysqld
+	mkdir -p /run/mysqld
 	chown mysql:mysql /run/mysqld
 fi
 
@@ -44,14 +42,15 @@ if [ -d /var/lib/mysql/mysql ]; then
 	printf -- "MariaDB already installed, skipping\n"
 else
 	# https://mariadb.com/kb/en/mysql_install_db/#options
-	mysql_install_db $MYSQL_INSTALL_OPT
+	mariadb-install-db $MYSQL_INSTALL_OPT
 
 	# create empty init.sql
-	> $init_file
+	init_file="$(mktemp -q)"
 	# FLUSH PRIVILEGES is important, can't remember why though
 	echo "FLUSH PRIVILEGES;" >> $init_file
 	# create new user
 	echo "CREATE USER '$WP_DB_USER'@'%' IDENTIFIED VIA mysql_native_password USING PASSWORD('$WP_DB_PASSWORD');" >> $init_file
+	echo "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('$MARIADB_ROOT_PASSWORD');" >> $init_file
 	# give all permissions to the new user
 	echo "GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'%';" >> $init_file
 	# make request
