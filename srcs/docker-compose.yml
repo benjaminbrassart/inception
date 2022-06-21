@@ -47,7 +47,13 @@ services:
       wordpress:
         condition: service_healthy
       grafana:
-        condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-kfsSL", "https://localhost:443/status"]
+      interval: 5s
+      timeout: 1s
+      retries: 10
+      start_period: 5s
 
 # ---------------------------------------------------------------------------- #
 
@@ -65,10 +71,10 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 2s
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MARIADB_ROOT_PASSWORD}"]
+      interval: 5s
       timeout: 1s
-      retries: 5
+      retries: 10
       start_period: 5s
 
 # ---------------------------------------------------------------------------- #
@@ -107,6 +113,12 @@ services:
     restart: always
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "nc", "-zv", "-w1", "127.0.0.1", "21"]
+      interval: 5s
+      timeout: 1s
+      retries: 10
+      start_period: 0s
 
 # ---------------------------------------------------------------------------- #
 
@@ -123,6 +135,12 @@ services:
     restart: always
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "curl", "-fsSL", "http://localhost:3000/healthz"]
+      interval: 5s
+      timeout: 1s
+      retries: 10
+      start_period: 0s
 
 # ---------------------------------------------------------------------------- #
 
@@ -175,13 +193,33 @@ services:
     container_name: inception_promtail
     build: services/bonus/promtail
     ports:
-      - "9080:9080"
+      - "9080"
     networks:
       - net_inception
     restart: always
     env_file:
       - .env
     volumes:
+      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+
+# ---------------------------------------------------------------------------- #
+
+  cadvisor:
+    container_name: inception_cadvisor
+    build: services/bonus/cadvisor
+    ports:
+      - "8080"
+    networks:
+      - net_inception
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - "/:/rootfs:ro"
+      - "/var/run:/var/run:ro"
+      - "/sys:/sys:ro"
+      - "/var/lib/docker/:/var/lib/docker:ro"
+      - "/dev/disk/:/dev/disk:ro"
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
