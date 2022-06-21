@@ -44,8 +44,10 @@ services:
     env_file:
       - .env
     depends_on:
-      - wordpress
-      - grafana
+      wordpress:
+        condition: service_healthy
+      grafana:
+        condition: service_started
 
 # ---------------------------------------------------------------------------- #
 
