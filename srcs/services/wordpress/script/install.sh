@@ -2,18 +2,15 @@
 
 WP_PATH='/var/www/html/wordpress'
 
-set -e
-set -x
+set -e -x
 
 mkdir -p "$WP_PATH"
 mkdir -p /var/log/php7
 
 for file in access error; do
-	touch /var/log/php7/$file.log
-	chmod 644 /var/log/php7/$file.log
+	touch "/var/log/php7/$file.log"
+	chmod 644 "/var/log/php7/$file.log"
 done
-
-export WP_CLI_ALLOW_ROOT=1
 
 if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
 	rm -rf "$WP_PATH"/*

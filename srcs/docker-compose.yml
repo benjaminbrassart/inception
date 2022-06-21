@@ -21,6 +21,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "cgi-fcgi", "-connect", "localhost:9000", "/status"]
+      interval: 5s
+      timeout: 1s
+      retries: 30
+      start_period: 5s
 
 # ---------------------------------------------------------------------------- #
 

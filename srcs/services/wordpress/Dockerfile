@@ -3,7 +3,7 @@ FROM alpine:3.15
 
 LABEL maintainer="bbrassar@student.42.fr"
 
-ENV WPCLI_URL=https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+ARG WPCLI_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
 
 # create a user that will run php-fpm
 #  options:
@@ -20,8 +20,7 @@ RUN apk -U upgrade && apk add --no-cache \
 	php7-xml php7-zip php7-iconv php7-intl \
 	php7-simplexml php7-sodium php7-xmlreader \
 	php7-zlib php7-ssh2 php7-ftp php7-sockets \
-	php7-session php7-phar php7-tokenizer \
-	curl imagemagick mariadb-client redis
+	curl imagemagick mariadb-client fcgi
 
 RUN rm -rf /etc/php7/php-fpm.d
 COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
