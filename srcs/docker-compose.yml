@@ -1,5 +1,7 @@
 version: '3.8'
 
+# ---------------------------------------------------------------------------- #
+
 services:
   wordpress:
     container_name: inception_wordpress
@@ -20,6 +22,8 @@ services:
       redis:
         condition: service_healthy
 
+# ---------------------------------------------------------------------------- #
+
   nginx:
     container_name: inception_nginx
     build: services/nginx
@@ -36,6 +40,8 @@ services:
     depends_on:
       - wordpress
       - grafana
+
+# ---------------------------------------------------------------------------- #
 
   mariadb:
     container_name: inception_mariadb
@@ -57,6 +63,8 @@ services:
       retries: 5
       start_period: 5s
 
+# ---------------------------------------------------------------------------- #
+
   redis:
     container_name: inception_redis
     build: services/bonus/redis
@@ -76,6 +84,8 @@ services:
       retries: 5
       start_period: 1s
 
+# ---------------------------------------------------------------------------- #
+
   ftp:
     container_name: inception_ftp
     build: services/bonus/ftp
@@ -89,6 +99,8 @@ services:
     restart: always
     env_file:
       - .env
+
+# ---------------------------------------------------------------------------- #
 
   grafana:
     container_name: inception_grafana
@@ -104,6 +116,8 @@ services:
     env_file:
       - .env
 
+# ---------------------------------------------------------------------------- #
+
   prometheus:
     container_name: inception_prometheus
     build: services/bonus/prometheus
@@ -118,6 +132,8 @@ services:
     env_file:
       - .env
 
+# ---------------------------------------------------------------------------- #
+
   node_exporter:
     container_name: inception_node_exporter
     build: services/bonus/node_exporter
@@ -131,6 +147,9 @@ services:
     volumes:
       - /:/rootfs:ro,rslave
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+
+# ---------------------------------------------------------------------------- #
+
   loki:
     container_name: inception_loki
     build: services/bonus/loki
@@ -141,8 +160,8 @@ services:
     restart: always
     env_file:
       - .env
-    # volumes:
-    #   - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+
+# ---------------------------------------------------------------------------- #
 
   promtail:
     container_name: inception_promtail
@@ -156,6 +175,8 @@ services:
       - .env
     volumes:
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+
+# ---------------------------------------------------------------------------- #
 
 networks:
   net_inception: {}
