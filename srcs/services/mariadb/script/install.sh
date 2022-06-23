@@ -54,7 +54,7 @@ else
 		# create new user
 		echo "CREATE USER '$WP_DB_USER'@'%' IDENTIFIED VIA mysql_native_password USING PASSWORD('$WP_DB_PASSWORD');"
 		# change root password
-		echo "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('$MARIADB_ROOT_PASSWORD');"
+		echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MARIADB_ROOT_PASSWORD');"
 		# give all permissions to the new user
 		echo "GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'%';"
 	} | mariadbd --user=mysql --bootstrap
