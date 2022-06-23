@@ -4,6 +4,7 @@
 # It only exists because Docker volumes are mounted at runtime, not
 # when building the container.
 
+# Options
 #	--auth-root-authentication-method=normal
 #		force root the authenticate with a password
 #
@@ -21,6 +22,8 @@
 #
 #	--verbose
 #		more information logging
+#
+# see https://mariadb.com/kb/en/mysql_install_db/#options
 #
 MYSQL_INSTALL_OPT="
 	--auth-root-authentication-method=normal
@@ -41,24 +44,23 @@ printf -- "Installing MariaDB\n"
 if [ -d /var/lib/mysql/mysql ]; then
 	printf -- "MariaDB already installed, skipping\n"
 else
-	# https://mariadb.com/kb/en/mysql_install_db/#options
+	# shellcheck disable=2086
 	mariadb-install-db $MYSQL_INSTALL_OPT
 
 	# create empty init.sql
-	init_file="$(mktemp -q)"
-	# FLUSH PRIVILEGES is important, can't remember why though
-	echo "FLUSH PRIVILEGES;" >> $init_file
-	# create new user
-	echo "CREATE USER '$WP_DB_USER'@'%' IDENTIFIED VIA mysql_native_password USING PASSWORD('$WP_DB_PASSWORD');" >> $init_file
-	echo "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('$MARIADB_ROOT_PASSWORD');" >> $init_file
-	# give all permissions to the new user
-	echo "GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'%';" >> $init_file
-	# make request
-	mysqld --user=mysql --bootstrap < $init_file
-	# delete init.sql
-	rm -f "$init_file"
+	{
+		# initialize privileges table (disable when running in bootstrap mode)
+		echo "FLUSH PRIVILEGES"
+		# create new user
+		echo "CREATE USER '$WP_DB_USER'@'%' IDENTIFIED VIA mysql_native_password USING PASSWORD('$WP_DB_PASSWORD');"
+		# change root password
+		echo "ALTER USER 'root'@'localhost' IDENTIFIED VIA mysql_native_password USING PASSWORD('$MARIADB_ROOT_PASSWORD');"
+		# give all permissions to the new user
+		echo "GRANT ALL PRIVILEGES ON *.* TO '$WP_DB_USER'@'%';"
+	} | mariadbd --user=mysql --bootstrap
 fi
 
 # delete default configs
-> /etc/my.cnf
-rm -rf /etc/my.cnf.d
+# ':' means 'do nothing'
+: > /etc/my.cnf
+rm -rf /etc/my.cnf.d/*

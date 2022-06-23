@@ -19,4 +19,5 @@ MYSQLD_OPT="
 "
 
 # replace the current shell process with the mysql server
+# shellcheck disable=2086
 exec mariadbd $MYSQLD_OPT

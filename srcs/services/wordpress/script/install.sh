@@ -13,7 +13,7 @@ for file in access error; do
 done
 
 if ! wp core is-installed --path="$WP_PATH" 2> /dev/null; then
-	rm -rf "$WP_PATH"/*
+	rm -rf "${WP_PATH:?}/*"
 
 	wp core download --path="$WP_PATH"
 

@@ -23,8 +23,10 @@ for file in /tmp/html/*; do
 	file_basename="$(basename "$file")"
 	volume_file="/var/www/html/$file_basename"
 
+	# shellcheck disable=3013
+	# '-nt' is not POSIX compliant but busybox's shell accepts it
 	if [ ! -f "$volume_file" ] || [ "$file" -nt "$volume_file" ]; then
-		printf -- "$file_basename has changed, copying\n"
+		printf -- "%s has changed, copying\n" "$file_basename"
 		cp "$file" "$volume_file"
 	fi
 done
