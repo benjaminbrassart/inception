@@ -47,10 +47,9 @@ else
 	# shellcheck disable=2086
 	mariadb-install-db $MYSQL_INSTALL_OPT
 
-	# create empty init.sql
 	{
-		# initialize privileges table (disable when running in bootstrap mode)
-		echo "FLUSH PRIVILEGES"
+		# initialize privileges table (disabled when running in bootstrap mode)
+		echo "FLUSH PRIVILEGES;"
 		# change root password
 		echo "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MARIADB_ROOT_PASSWORD');"
 		# create new user
