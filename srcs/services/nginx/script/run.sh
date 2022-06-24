@@ -10,25 +10,25 @@ LOGIN_SERVERS_URL='https://raw.githubusercontent.com/vrana/adminer/master/plugin
 
 mkdir -p /var/log/nginx
 
-if [ ! -f "$ADMINER_DIR/adminer.php" ]; then
-	mkdir -p "$ADMINER_DIR/plugins"
-	cp /tmp/index.php "$ADMINER_DIR/index.php"
-	curl -L "$ADMINER_URL" -o "$ADMINER_DIR/adminer.php"
-	curl -L "$ADMINER_PLUGIN_URL" -o "$ADMINER_DIR/plugins/plugin.php"
-	curl -L "$LOGIN_SERVERS_URL" -o "$ADMINER_DIR/plugins/login-servers.php"
+if [ ! -f "${ADMINER_DIR}/adminer.php" ]; then
+    mkdir -p "${ADMINER_DIR}/plugins"
+    cp /tmp/index.php "${ADMINER_DIR}/index.php"
+    curl -L "${ADMINER_URL}" -o "${ADMINER_DIR}/adminer.php"
+    curl -L "${ADMINER_PLUGIN_URL}" -o "${ADMINER_DIR}/plugins/plugin.php"
+    curl -L "${LOGIN_SERVERS_URL}" -o "${ADMINER_DIR}/plugins/login-servers.php"
 fi
 
 # forced to do this contraption because we can't copy directly to a volume
 for file in /tmp/html/*; do
-	file_basename="$(basename "$file")"
-	volume_file="/var/www/html/$file_basename"
+    file_basename="$(basename "${file}")"
+    volume_file="/var/www/html/${file_basename}"
 
-	# shellcheck disable=3013
-	# '-nt' is not POSIX compliant but busybox's shell accepts it
-	if [ ! -f "$volume_file" ] || [ "$file" -nt "$volume_file" ]; then
-		printf -- "%s has changed, copying\n" "$file_basename"
-		cp "$file" "$volume_file"
-	fi
+    # shellcheck disable=3013
+    # '-nt' is not POSIX compliant but busybox's shell accepts it
+    if [ ! -f "${volume_file}" ] || [ "${file}" -nt "${volume_file}" ]; then
+        printf -- "%s has changed, copying\n" "${file_basename}"
+        cp "${file}" "${volume_file}"
+    fi
 done
 
 exec nginx -g 'daemon off;'

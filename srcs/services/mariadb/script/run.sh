@@ -12,12 +12,12 @@ sh /tmp/install.sh
 #	-v
 #		more information logging
 MYSQLD_OPT="
-	--bind-address=0.0.0.0
-	--disable-skip-networking
-	-u mysql
-	-v
+    --bind-address=0.0.0.0
+    --disable-skip-networking
+    --user mysql
+    --verbose
 "
 
 # replace the current shell process with the mysql server
 # shellcheck disable=2086
-exec mariadbd $MYSQLD_OPT
+exec mariadbd ${MYSQLD_OPT}

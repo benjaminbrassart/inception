@@ -12,17 +12,17 @@
 # see https://redis.io/docs/manual/eviction/
 
 REDIS_OPT="
-	--protected-mode no
-	--bind 0.0.0.0
-	--maxmemory-policy allkeys-lru
-	--maxmemory $REDIS_MAX_MEMORY
+    --protected-mode no
+    --bind 0.0.0.0
+    --maxmemory-policy allkeys-lru
+    --maxmemory ${REDIS_MAX_MEMORY}
 "
 
 HUGEPAGE_CONF='/sys/kernel/mm/transparent_hugepage/enabled'
-[ ! -f "$HUGEPAGE_CONF" ] && echo never > $HUGEPAGE_CONF
+[ ! -f "${HUGEPAGE_CONF}" ] && echo never > "${HUGEPAGE_CONF}"
 
 # enable memory overcommitting (because redis uses lots of memory)
 sysctl vm.overcommit_memory=1
 
 # shellcheck disable=2086
-exec redis-server $REDIS_OPT
+exec redis-server ${REDIS_OPT}
