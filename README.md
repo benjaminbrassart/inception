@@ -6,23 +6,31 @@
 
 #### Volumes
 
-https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html
+- https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html
 
-https://docs.docker.com/storage/volumes/#use-a-volume-with-docker-compose
+- https://docs.docker.com/storage/volumes/#use-a-volume-with-docker-compose
 
-https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference
+- https://docs.docker.com/compose/compose-file/compose-file-v3/#volume-configuration-reference
 
 #### Healthcheck
 
-https://stackoverflow.com/questions/42737957/how-to-view-docker-compose-healthcheck-logs
+- https://stackoverflow.com/questions/42737957/how-to-view-docker-compose-healthcheck-logs
 
 ### SSL
 
-https://stackoverflow.com/questions/10175812/how-to-generate-a-self-signed-ssl-certificate-using-openssl
+- https://stackoverflow.com/questions/10175812/how-to-generate-a-self-signed-ssl-certificate-using-openssl
 
-https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm#Usingthe-subjSwitch
+- https://www.digicert.com/kb/ssl-support/openssl-quick-reference-guide.htm#Usingthe-subjSwitch
 
-https://www.shellhacks.com/create-csr-openssl-without-prompt-non-interactive/
+- https://www.shellhacks.com/create-csr-openssl-without-prompt-non-interactive/
+
+### Alpine
+
+- [Official repository](https://pkgs.alpinelinux.org/packages)
+
+### Debian
+
+- [Official repository](https://www.debian.org/distrib/packages#search_packages)
 
 ## Things to know
 
