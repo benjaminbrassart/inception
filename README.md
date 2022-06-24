@@ -26,6 +26,23 @@ https://www.shellhacks.com/create-csr-openssl-without-prompt-non-interactive/
 
 ## Things to know
 
+### Debian
+If you are running Debian on your host machine, be aware that the version of docker-compose available in the official repository is incredibly outdated (v1.25.0-rc1, may 2019). You can however download a more recent release at their [GitHub repository](https://github.com/docker/compose/releases). For example:
+
+```sh
+# as root
+# for dependencies and stuff like shell completion
+apt install --reinstall docker-compose
+
+# as root
+# download docker-compose v2.6.1 for Linux on amd64 hardware
+curl -fL -o /usr/bin/docker-compose 'https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-x86_64'
+
+# as root
+# make binary executable
+chmod +x /usr/bin/docker-compose
+```
+
 ### Docker
 
 The `HEALTHCHECK` instruction checks whether a container is healthy (e.g. ready to operate) every x time.
