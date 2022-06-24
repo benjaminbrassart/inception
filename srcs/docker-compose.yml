@@ -180,7 +180,7 @@ services:
     container_name: inception_loki
     build: services/bonus/loki
     ports:
-      - "3100:3100"
+      - "3100"
     networks:
       - net_inception
     restart: always
