@@ -221,6 +221,6 @@ volumes:
   v_logs:
     driver: local
     driver_opts:
-      type: none
+      type: volume
       o: bind
       device: "${VOLUMES_LOCATION}/v_logs"
