@@ -60,7 +60,7 @@ services:
     container_name: inception_mariadb
     build: services/mariadb
     volumes:
-      - ${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw
+      - "${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw"
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "3306"
@@ -101,7 +101,7 @@ services:
     container_name: inception_ftp
     build: services/bonus/ftp
     volumes:
-      - ${VOLUMES_LOCATION}/v_wordpress/wordpress:/srv:rw
+      - "${VOLUMES_LOCATION}/v_wordpress/wordpress:/srv:rw"
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "21:21"
@@ -123,7 +123,7 @@ services:
     container_name: inception_grafana
     build: services/bonus/grafana
     volumes:
-      - ${VOLUMES_LOCATION}/v_grafana:/var/lib/grafana:rw
+      - "${VOLUMES_LOCATION}/v_grafana:/var/lib/grafana:rw"
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "3000"
@@ -144,7 +144,7 @@ services:
     container_name: inception_prometheus
     build: services/bonus/prometheus
     volumes:
-      - ${VOLUMES_LOCATION}/v_prometheus:/var/lib/prometheus:rw
+      - "${VOLUMES_LOCATION}/v_prometheus:/var/lib/prometheus:rw"
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "9090"
@@ -165,7 +165,7 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - /:/rootfs:ro,rslave
+      - "/:/rootfs:ro,rslave"
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
