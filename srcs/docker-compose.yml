@@ -220,6 +220,8 @@ networks:
 
 volumes:
   v_logs:
-    device: "${VOLUMES_LOCATION}/v_logs"
-    type: none
-    o: bind
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${VOLUMES_LOCATION}/v_logs"
