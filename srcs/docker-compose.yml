@@ -12,7 +12,7 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     restart: always
     env_file: .env
     depends_on:
@@ -38,7 +38,7 @@ services:
       - net_inception
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     restart: always
     env_file: .env
     depends_on:
@@ -61,7 +61,7 @@ services:
     build: services/mariadb
     volumes:
       - "${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "3306"
     networks:
@@ -81,7 +81,7 @@ services:
     container_name: inception_redis
     build: services/bonus/redis
     volumes:
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "6379"
     networks:
@@ -102,7 +102,7 @@ services:
     build: services/bonus/ftp
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress/wordpress:/srv:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "21:21"
       - "21000-21010:21000:21010"
@@ -124,7 +124,7 @@ services:
     build: services/bonus/grafana
     volumes:
       - "${VOLUMES_LOCATION}/v_grafana:/var/lib/grafana:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "3000"
     networks:
@@ -145,7 +145,7 @@ services:
     build: services/bonus/prometheus
     volumes:
       - "${VOLUMES_LOCATION}/v_prometheus:/var/lib/prometheus:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "9090"
     networks:
@@ -166,7 +166,7 @@ services:
     env_file: .env
     volumes:
       - "/:/rootfs:ro,rslave"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
 
@@ -192,7 +192,7 @@ services:
     restart: always
     env_file: .env
     volumes:
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
 
@@ -211,9 +211,15 @@ services:
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
       - "/dev/disk/:/dev/disk:ro"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
 
 networks:
   net_inception: {}
+
+volumes:
+  v_logs:
+    device: "${VOLUMES_LOCATION}/v_logs"
+    type: none
+    o: bind
