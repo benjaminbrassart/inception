@@ -112,4 +112,5 @@ What we are looking for is at the beginning of the output:
  0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]
 ```
 
-In this example, the package `libc6-compat` (alpine) was missing.
+Then, search for the missing files at your distribution's package repository
+([here](https://pkgs.alpinelinux.org/contents) for alpine, [here](https://www.debian.org/distrib/packages#search_contents) for debian. In this example, the package `libc6-compat` (alpine) was missing.
