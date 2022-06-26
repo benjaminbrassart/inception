@@ -105,7 +105,7 @@ services:
       - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
     ports:
       - "21:21"
-      - "21000-21100:21000-21100"
+      - "21000:21000"
     networks:
       - net_inception
     restart: always
