@@ -1,1 +1,0 @@
-ftp server is broken, accepts then refuses connections, keeping the client in an infinite listing loop
