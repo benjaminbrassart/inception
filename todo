@@ -1,0 +1,3 @@
+- image name + tag (image: mariadb:inception)
+- v_logs
+- inception_<container_name> -> <container_name>
