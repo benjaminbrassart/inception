@@ -1,5 +1,7 @@
 FROM alpine:edge
 
+LABEL maintainer="bbrassar@student.42.fr"
+
 ARG PROMTAIL_NAME=promtail-linux-amd64
 ARG PROMTAIL_VER=2.5.0
 ARG PROMTAIL_URI=https://github.com/grafana/loki/releases/download/v${PROMTAIL_VER}/${PROMTAIL_NAME}.zip

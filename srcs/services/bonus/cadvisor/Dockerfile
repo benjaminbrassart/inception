@@ -1,5 +1,7 @@
 FROM alpine:3.16
 
+LABEL maintainer="bbrassar@student.42.fr"
+
 ARG CADVISOR_VER=0.39.3
 ARG CADVISOR_URI="https://github.com/google/cadvisor/releases/download/v0.39.3/cadvisor"
 

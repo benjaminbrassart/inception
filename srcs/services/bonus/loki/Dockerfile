@@ -1,5 +1,7 @@
 FROM alpine:edge
 
+LABEL maintainer="bbrassar@student.42.fr"
+
 ARG LOKI_NAME=loki-linux-amd64
 ARG LOKI_VER=2.5.0
 ARG LOKI_URI=https://github.com/grafana/loki/releases/download/v${LOKI_VER}/${LOKI_NAME}.zip

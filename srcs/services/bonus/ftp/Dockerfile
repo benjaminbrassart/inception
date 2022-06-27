@@ -1,5 +1,7 @@
 FROM alpine:3.16
 
+LABEL maintainer="bbrassar@student.42.fr"
+
 RUN apk -U upgrade && apk add --no-cache proftpd proftpd-utils
 RUN mkdir -p /run/proftpd
 
