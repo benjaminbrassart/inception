@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.16
 
 LABEL maintainer="bbrassar@student.42.fr"
 
