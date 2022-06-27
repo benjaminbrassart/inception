@@ -7,7 +7,6 @@ function adminer_object()
 
 	foreach (glob("plugins/*.php") as $filename)
 	{
-		echo "$filename";
 		include_once "./$filename";
 	}
 
