@@ -13,7 +13,7 @@ services:
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
       - "v_logs:/var/log:rw"
-    restart: always
+    restart: unless-stopped
     env_file: .env
     depends_on:
       mariadb:
@@ -39,7 +39,7 @@ services:
     volumes:
       - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
       - "v_logs:/var/log:rw"
-    restart: always
+    restart: unless-stopped
     env_file: .env
     depends_on:
       wordpress:
@@ -66,7 +66,7 @@ services:
       - "3306"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     healthcheck:
       test: mysqladmin ping --host=localhost --password="${MARIADB_ROOT_PASSWORD}"
@@ -86,7 +86,7 @@ services:
       - "6379"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     healthcheck:
       test: redis-cli PING
@@ -107,7 +107,7 @@ services:
       - "21:21"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     healthcheck:
       test: nc -z -v -w1 localhost 21
@@ -128,7 +128,7 @@ services:
       - "3000"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     healthcheck:
       test: 'curl --fail --silent --show-error --location http://localhost:3000/healthz'
@@ -149,7 +149,7 @@ services:
       - "9090"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
 
 # ---------------------------------------------------------------------------- #
@@ -161,7 +161,7 @@ services:
       - "9100"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     volumes:
       - "/:/rootfs:ro,rslave"
@@ -176,7 +176,7 @@ services:
       - "3100"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
 
 # ---------------------------------------------------------------------------- #
@@ -188,7 +188,7 @@ services:
       - "9080"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     volumes:
       - "v_logs:/var/log:rw"
@@ -202,7 +202,7 @@ services:
       - "8080"
     networks:
       - net_inception
-    restart: always
+    restart: unless-stopped
     env_file: .env
     volumes:
       - "/:/rootfs:ro"
