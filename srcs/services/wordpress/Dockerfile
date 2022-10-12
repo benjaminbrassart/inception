@@ -1,5 +1,5 @@
-FROM alpine:3.16
-#FROM alpine:3.15
+#FROM alpine:3.16
+FROM alpine:3.15.6
 
 LABEL maintainer="bbrassar@student.42.fr"
 
@@ -31,7 +31,7 @@ RUN apk add --no-cache \
 
 # THEY RENAMED THE BINARY 'php' TO 'php7' WHEN MOVING IT TO TESTING
 # *angry developer noises*
-RUN ln -s /usr/bin/php7 /usr/bin/php
+#RUN ln -s /usr/bin/php7 /usr/bin/php
 
 RUN rm -rf /etc/php7/php-fpm.d
 COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
