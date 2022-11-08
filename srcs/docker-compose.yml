@@ -4,15 +4,15 @@ version: '3.8'
 
 services:
   wordpress:
-    container_name: inception_wordpress
+    container_name: wordpress
     build: services/wordpress
     ports:
       - "9000"
     networks:
       - net_inception
     volumes:
-      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_wordpress:/var/www/html:rw"
+      - "v_logs:/var/log:rw"
     restart: unless-stopped
     env_file: .env
     depends_on:
@@ -30,15 +30,15 @@ services:
 # ---------------------------------------------------------------------------- #
 
   nginx:
-    container_name: inception_nginx
+    container_name: nginx
     build: services/nginx
     ports:
       - "443:443"
     networks:
       - net_inception
     volumes:
-      - "${VOLUMES_LOCATION}/v_wordpress:/var/www/html:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_wordpress:/var/www/html:rw"
+      - "v_logs:/var/log:rw"
     restart: unless-stopped
     env_file: .env
     depends_on:
@@ -57,11 +57,11 @@ services:
 # ---------------------------------------------------------------------------- #
 
   mariadb:
-    container_name: inception_mariadb
+    container_name: mariadb
     build: services/mariadb
     volumes:
-      - "${VOLUMES_LOCATION}/v_database:/var/lib/mysql:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_database:/var/lib/mysql:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "3306"
     networks:
@@ -78,10 +78,10 @@ services:
 # ---------------------------------------------------------------------------- #
 
   redis:
-    container_name: inception_redis
+    container_name: redis
     build: services/bonus/redis
     volumes:
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "6379"
     networks:
@@ -98,11 +98,11 @@ services:
 # ---------------------------------------------------------------------------- #
 
   ftp:
-    container_name: inception_ftp
+    container_name: ftp
     build: services/bonus/ftp
     volumes:
-      - "${VOLUMES_LOCATION}/v_wordpress/wordpress:/srv:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_wordpress:/srv:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "21:21"
     networks:
@@ -119,11 +119,11 @@ services:
 # ---------------------------------------------------------------------------- #
 
   grafana:
-    container_name: inception_grafana
+    container_name: grafana
     build: services/bonus/grafana
     volumes:
-      - "${VOLUMES_LOCATION}/v_grafana:/var/lib/grafana:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_grafana:/var/lib/grafana:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "3000"
     networks:
@@ -140,11 +140,11 @@ services:
 # ---------------------------------------------------------------------------- #
 
   prometheus:
-    container_name: inception_prometheus
+    container_name: prometheus
     build: services/bonus/prometheus
     volumes:
-      - "${VOLUMES_LOCATION}/v_prometheus:/var/lib/prometheus:rw"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_prometheus:/var/lib/prometheus:rw"
+      - "v_logs:/var/log:rw"
     ports:
       - "9090"
     networks:
@@ -155,7 +155,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   node_exporter:
-    container_name: inception_node_exporter
+    container_name: node_exporter
     build: services/bonus/node_exporter
     ports:
       - "9100"
@@ -165,12 +165,12 @@ services:
     env_file: .env
     volumes:
       - "/:/rootfs:ro,rslave"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
 
   loki:
-    container_name: inception_loki
+    container_name: loki
     build: services/bonus/loki
     ports:
       - "3100"
@@ -182,7 +182,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   promtail:
-    container_name: inception_promtail
+    container_name: promtail
     build: services/bonus/promtail
     ports:
       - "9080"
@@ -191,12 +191,12 @@ services:
     restart: unless-stopped
     env_file: .env
     volumes:
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
 
   cadvisor:
-    container_name: inception_cadvisor
+    container_name: cadvisor
     build: services/bonus/cadvisor
     ports:
       - "8080"
@@ -210,9 +210,41 @@ services:
       - "/sys:/sys:ro"
       - "/var/lib/docker/:/var/lib/docker:ro"
       - "/dev/disk/:/dev/disk:ro"
-      - "${VOLUMES_LOCATION}/v_logs:/var/log:rw"
+      - "v_logs:/var/log:rw"
 
 # ---------------------------------------------------------------------------- #
+
+volumes:
+  v_logs:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: ${VOLUMES_LOCATION}/v_logs
+      # o: bind
+  v_database:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: ${VOLUMES_LOCATION}/v_database
+      # o: bind
+  v_wordpress:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: ${VOLUMES_LOCATION}/v_wordpress
+      # o: bind
+  v_grafana:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: ${VOLUMES_LOCATION}/v_grafana
+      # o: bind
+  v_prometheus:
+    # driver: local
+    # driver_opts:
+      # type: none
+      # device: ${VOLUMES_LOCATION}/v_prometheu
+      # o: bind
 
 networks:
   net_inception: {}
