@@ -13,7 +13,7 @@ function adminer_object()
 	$plugins = [
 		new AdminerLoginServers([
 			"MariaDB" => [
-				"server" => "inception_mariadb",
+				"server" => "mariadb",
 				"driver" => "server",
 			]
 		]),

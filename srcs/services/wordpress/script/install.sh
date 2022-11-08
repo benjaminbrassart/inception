@@ -12,7 +12,7 @@ for file in access error; do
     chmod 644 "/var/log/php7/${file}.log"
 done
 
-if ! wp core is-installed --path="${WP_PATH}" 2> /dev/null; then
+if [ ! -f "${WP_PATH}/wp-config.php" ]; then
     rm -rf "${WP_PATH:?}/*"
 
     wp core download --path="${WP_PATH}"
@@ -23,7 +23,7 @@ if ! wp core is-installed --path="${WP_PATH}" 2> /dev/null; then
         --dbname="${WP_DB_NAME}" \
         --dbuser="${WP_DB_USER}" \
         --dbpass="${WP_DB_PASSWORD}" \
-        --dbhost="inception_mariadb" \
+        --dbhost="mariadb" \
         --debug
     wp db create
     wp core install \
@@ -48,7 +48,7 @@ if ! wp core is-installed --path="${WP_PATH}" 2> /dev/null; then
     wp redis enable
 
     # https://github.com/rhubarbgroup/redis-cache/wiki/Connection-Parameters
-    wp config set WP_REDIS_HOST inception_redis
+    wp config set WP_REDIS_HOST redis
     wp config set WP_REDIS_PORT 6379 --raw
     wp config set WP_REDIS_TIMEOUT 1 --raw
     wp config set WP_REDIS_READ_TIMEOUT 1 --raw

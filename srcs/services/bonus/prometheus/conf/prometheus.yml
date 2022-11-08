@@ -2,7 +2,7 @@ global:
   scrape_interval: 15s
   evaluation_interval: 115s
   external_labels:
-    monitor: "inception_prometheus"
+    monitor: "prometheus"
 
 rule_files:
   - "targets.rules"
@@ -23,4 +23,4 @@ scrape_configs:
   - job_name: "node_exporter"
     scrape_interval: 10s
     static_configs:
-      - targets: ["inception_node_exporter:9100"]
+      - targets: ["node_exporter:9100"]

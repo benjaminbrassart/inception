@@ -3,18 +3,18 @@ FROM alpine:3.15.6
 
 LABEL maintainer="bbrassar@student.42.fr"
 
+ARG WP_URL="https://wordpress.org/wordpress-6.1.tar.gz"
 ARG WPCLI_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
 ARG ALPINE_REPO_TESTING="https://dl-cdn.alpinelinux.org/alpine/edge/testing"
 
 # create a user that will run php-fpm
 #  options:
 #   -S -> create a system account
-#   -D -> do not create home directory
+#   -D -> disable password (system account)
 #   -H -> do not create home directory
 RUN adduser -SDH www-data
 
 # https://make.wordpress.org/hosting/handbook/server-environment/
-
 RUN apk -U upgrade && apk add --no-cache \
 	php7 php7-fpm php7-mysqli php7-json \
 	php7-curl php7-dom php7-exif php7-fileinfo \
@@ -34,6 +34,11 @@ RUN mkdir -p /var/www
 RUN curl -Lo /usr/bin/wp ${WPCLI_URL} && chmod +x /usr/bin/wp
 
 COPY script/install.sh /tmp/install.sh
+
+WORKDIR /var/www/html
+
+# Download and extract in the same pipeline
+RUN curl -o- -fsSL "${WP_URL}" | tar xzf -
 
 # ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf" ]
 ENTRYPOINT [ "sh", "/tmp/install.sh" ]
