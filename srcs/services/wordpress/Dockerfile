@@ -1,5 +1,5 @@
-FROM alpine:3.15.2
-#FROM alpine:3.15
+#FROM alpine:3.16
+FROM alpine:3.15.6
 
 LABEL maintainer="bbrassar@student.42.fr"
 
