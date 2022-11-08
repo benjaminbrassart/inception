@@ -4,12 +4,13 @@ version: '3.8'
 
 services:
   wordpress:
+    image: wordpress:inception
     container_name: wordpress
     build: services/wordpress
     ports:
       - "9000"
     networks:
-      - net_inception
+      - net_backend
     volumes:
       - "v_wordpress:/var/www/html:rw"
       - "v_logs:/var/log:rw"
@@ -30,12 +31,14 @@ services:
 # ---------------------------------------------------------------------------- #
 
   nginx:
+    image: nginx:inception
     container_name: nginx
     build: services/nginx
     ports:
       - "443:443"
     networks:
-      - net_inception
+      - net_backend
+      - net_grafana
     volumes:
       - "v_wordpress:/var/www/html:rw"
       - "v_logs:/var/log:rw"
@@ -47,8 +50,7 @@ services:
       grafana:
         condition: service_healthy
     healthcheck:
-      test: 'curl --insecure --fail --silent --show-error --location
-        https://localhost:443/status'
+      test: 'curl -kfsSL https://localhost:443/status'
       interval: 5s
       timeout: 1s
       retries: 10
@@ -57,6 +59,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   mariadb:
+    image: mariadb:inception
     container_name: mariadb
     build: services/mariadb
     volumes:
@@ -65,7 +68,7 @@ services:
     ports:
       - "3306"
     networks:
-      - net_inception
+      - net_backend
     restart: unless-stopped
     env_file: .env
     healthcheck:
@@ -78,6 +81,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   redis:
+    image: redis:inception
     container_name: redis
     build: services/bonus/redis
     volumes:
@@ -85,7 +89,7 @@ services:
     ports:
       - "6379"
     networks:
-      - net_inception
+      - net_backend
     restart: unless-stopped
     env_file: .env
     healthcheck:
@@ -98,6 +102,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   ftp:
+    image: ftp:inception
     container_name: ftp
     build: services/bonus/ftp
     volumes:
@@ -105,8 +110,6 @@ services:
       - "v_logs:/var/log:rw"
     ports:
       - "21:21"
-    networks:
-      - net_inception
     restart: unless-stopped
     env_file: .env
     healthcheck:
@@ -119,6 +122,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   grafana:
+    image: grafana:inception
     container_name: grafana
     build: services/bonus/grafana
     volumes:
@@ -127,11 +131,11 @@ services:
     ports:
       - "3000"
     networks:
-      - net_inception
+      - net_grafana
     restart: unless-stopped
     env_file: .env
     healthcheck:
-      test: 'curl --fail --silent --show-error --location http://localhost:3000/healthz'
+      test: 'curl -fsSL http://localhost:3000/healthz'
       interval: 5s
       timeout: 1s
       retries: 10
@@ -140,6 +144,7 @@ services:
 # ---------------------------------------------------------------------------- #
 
   prometheus:
+    image: prometheus:inception
     container_name: prometheus
     build: services/bonus/prometheus
     volumes:
@@ -148,19 +153,20 @@ services:
     ports:
       - "9090"
     networks:
-      - net_inception
+      - net_grafana
     restart: unless-stopped
     env_file: .env
 
 # ---------------------------------------------------------------------------- #
 
   node_exporter:
+    image: node_exporter:inception
     container_name: node_exporter
     build: services/bonus/node_exporter
     ports:
       - "9100"
     networks:
-      - net_inception
+      - net_grafana
     restart: unless-stopped
     env_file: .env
     volumes:
@@ -170,24 +176,26 @@ services:
 # ---------------------------------------------------------------------------- #
 
   loki:
+    image: loki:inception
     container_name: loki
     build: services/bonus/loki
     ports:
       - "3100"
     networks:
-      - net_inception
+      - net_grafana
     restart: unless-stopped
     env_file: .env
 
 # ---------------------------------------------------------------------------- #
 
   promtail:
+    image: promtail:inception
     container_name: promtail
     build: services/bonus/promtail
     ports:
       - "9080"
     networks:
-      - net_inception
+      - net_grafana
     restart: unless-stopped
     env_file: .env
     volumes:
@@ -196,12 +204,13 @@ services:
 # ---------------------------------------------------------------------------- #
 
   cadvisor:
+    image: cadvisor:inception
     container_name: cadvisor
     build: services/bonus/cadvisor
     ports:
       - "8080"
     networks:
-      - net_inception
+      - net_grafana
     restart: unless-stopped
     env_file: .env
     volumes:
@@ -216,35 +225,36 @@ services:
 
 volumes:
   v_logs:
-    # driver: local
-    # driver_opts:
-      # type: none
-      # device: ${VOLUMES_LOCATION}/v_logs
-      # o: bind
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUMES_LOCATION}/v_logs
+      o: bind
   v_database:
-    # driver: local
-    # driver_opts:
-      # type: none
-      # device: ${VOLUMES_LOCATION}/v_database
-      # o: bind
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUMES_LOCATION}/v_database
+      o: bind
   v_wordpress:
-    # driver: local
-    # driver_opts:
-      # type: none
-      # device: ${VOLUMES_LOCATION}/v_wordpress
-      # o: bind
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUMES_LOCATION}/v_wordpress
+      o: bind
   v_grafana:
-    # driver: local
-    # driver_opts:
-      # type: none
-      # device: ${VOLUMES_LOCATION}/v_grafana
-      # o: bind
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUMES_LOCATION}/v_grafana
+      o: bind
   v_prometheus:
-    # driver: local
-    # driver_opts:
-      # type: none
-      # device: ${VOLUMES_LOCATION}/v_prometheu
-      # o: bind
+    driver: local
+    driver_opts:
+      type: none
+      device: ${VOLUMES_LOCATION}/v_prometheus
+      o: bind
 
 networks:
-  net_inception: {}
+  net_backend: {}
+  net_grafana: {}
