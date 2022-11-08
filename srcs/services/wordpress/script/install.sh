@@ -13,12 +13,6 @@ for file in access error; do
 done
 
 if [ ! -f "${WP_PATH}/wp-config.php" ]; then
-    rm -rf "${WP_PATH:?}/*"
-
-    wp core download --path="${WP_PATH}"
-
-    cd "${WP_PATH}"
-
     wp config create \
         --dbname="${WP_DB_NAME}" \
         --dbuser="${WP_DB_USER}" \
