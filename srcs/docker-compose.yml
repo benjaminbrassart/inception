@@ -226,34 +226,14 @@ services:
 volumes:
   v_logs:
     driver: local
-    driver_opts:
-      type: none
-      device: ${VOLUMES_LOCATION}/v_logs
-      o: bind
   v_database:
     driver: local
-    driver_opts:
-      type: none
-      device: ${VOLUMES_LOCATION}/v_database
-      o: bind
   v_wordpress:
     driver: local
-    driver_opts:
-      type: none
-      device: ${VOLUMES_LOCATION}/v_wordpress
-      o: bind
   v_grafana:
     driver: local
-    driver_opts:
-      type: none
-      device: ${VOLUMES_LOCATION}/v_grafana
-      o: bind
   v_prometheus:
     driver: local
-    driver_opts:
-      type: none
-      device: ${VOLUMES_LOCATION}/v_prometheus
-      o: bind
 
 networks:
   net_backend: {}
