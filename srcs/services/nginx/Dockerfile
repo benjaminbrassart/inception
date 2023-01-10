@@ -18,9 +18,8 @@ RUN openssl req -x509 -newkey rsa:4096 \
 	-subj '/C=FR/ST=Ile-de-France/L=Paris/O=42/CN=bbrassar.42.fr'
 
 RUN \
-	mkdir -p /var/log/nginx /var/lib/nginx/logs && \
+	mkdir -p ${ADMINER_DIR}/plugins /var/log/nginx /var/lib/nginx/logs && \
 	touch /var/log/nginx/error.log /var/lib/nginx/logs/error.log && \
-	 ${ADMINER_DIR}/plugins && \
 	curl -L ${ADMINER_URL} -o ${ADMINER_DIR}/adminer.php \
 	curl -L ${ADMINER_PLUGIN_URL} -o ${ADMINER_DIR}/plugins/plugin.php \
 	curl -L ${LOGIN_SERVERS_URL} -o ${ADMINER_DIR}/plugins/login-servers.php
