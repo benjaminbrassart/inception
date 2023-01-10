@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2023/01/10 13:05:09 by bbrassar         ###   ########.fr        #
+#    Updated: 2023/01/10 14:09:10 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,4 +53,4 @@ set-host:
 	@echo "127.0.0.1 bbrassar.42.fr" | tee -a /etc/hosts
 
 $(COMPOSE_ACTIONS):
-	$(COMPOSE) $@
+	$(COMPOSE) $@ $(c)
