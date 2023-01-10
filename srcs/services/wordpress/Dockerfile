@@ -5,7 +5,6 @@ LABEL maintainer="bbrassar@student.42.fr"
 
 ARG WP_URL="https://wordpress.org/wordpress-6.1.tar.gz"
 ARG WPCLI_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
-ARG ALPINE_REPO_TESTING="https://dl-cdn.alpinelinux.org/alpine/edge/testing"
 
 # create a user that will run php-fpm
 #  options:
