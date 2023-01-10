@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2023/01/10 11:50:48 by bbrassar         ###   ########.fr        #
+#    Updated: 2023/01/10 13:05:09 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ DIR_SRC = srcs
 include $(DIR_SRC)/.env
 
 COMPOSE = docker compose --project-directory $(DIR_SRC)
-COMPOSE_ACTIONS = start stop ps kill logs
+COMPOSE_ACTIONS = start stop ps kill logs up down
 
 .PHONY: all build prune clean fclean restart status re set-host $(COMPOSE_ACTIONS)
 
