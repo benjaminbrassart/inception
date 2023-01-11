@@ -27,6 +27,6 @@ RUN \
 COPY php/adminer/index.php ${ADMINER_DIR}/index.php
 COPY conf/bbrassar.conf /etc/nginx/http.d/default.conf
 
-ADD html /var/www/html
+COPY html/* /var/www/html/
 
 ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
