@@ -1,10 +1,7 @@
 #!/bin/sh
 
-WP_PATH='/var/www/html/wordpress'
-
 set -e -x
 
-mkdir -p "${WP_PATH}"
 mkdir -p /var/log/php7
 
 for file in access error; do
@@ -12,9 +9,7 @@ for file in access error; do
     chmod 644 "/var/log/php7/${file}.log"
 done
 
-if [ ! -f "${WP_PATH}/wp-config.php" ]; then
-    cd "${WP_PATH}"
-
+if ! wp core is-installed; then
     wp config create \
         --dbname="${WP_DB_NAME}" \
         --dbuser="${WP_DB_USER}" \
@@ -49,8 +44,6 @@ if [ ! -f "${WP_PATH}/wp-config.php" ]; then
     wp config set WP_REDIS_TIMEOUT 1 --raw
     wp config set WP_REDIS_READ_TIMEOUT 1 --raw
     wp config set WP_REDIS_DATABASE false --raw
-
-    cd -
 fi
 
 exec php-fpm7 -R -F -y /etc/php7/php-fpm.conf

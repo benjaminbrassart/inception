@@ -3,7 +3,6 @@ FROM alpine:3.15.6
 
 LABEL maintainer="bbrassar@student.42.fr"
 
-ARG WP_URL="https://wordpress.org/wordpress-6.1.tar.gz"
 ARG WPCLI_URL="https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
 
 # create a user that will run php-fpm
@@ -27,17 +26,17 @@ RUN apk -U upgrade && apk add --no-cache \
 RUN rm -rf /etc/php7/php-fpm.d
 COPY conf/php-fpm.conf /etc/php7/php-fpm.conf
 
-RUN mkdir -p /var/www
+RUN mkdir -p /var/www && rm -rf /var/www/html
+RUN \
+	touch /var/log/php7/access.log /var/log/php7/error.log && \
+	chmod 644 /var/log/php7/access.log /var/log/php7/error.log
 
 # https://wp-cli.org/
 RUN curl -Lo /usr/bin/wp ${WPCLI_URL} && chmod +x /usr/bin/wp
 
 COPY script/install.sh /tmp/install.sh
 
-WORKDIR /var/www/html
-
-# Download and extract in the same pipeline
-RUN curl -o- -fsSL "${WP_URL}" | tar xzf -
+WORKDIR /var/www/html/wordpress
 
 # ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf" ]
 ENTRYPOINT [ "sh", "/tmp/install.sh" ]
