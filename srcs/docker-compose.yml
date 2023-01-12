@@ -12,7 +12,7 @@ services:
     networks:
       - net_backend
     volumes:
-      - "v_wordpress:/var/www/html:rw"
+      - "v_wordpress:/var/www/html/wordpress:rw"
       - "v_logs:/var/log:rw"
     restart: unless-stopped
     env_file: .env

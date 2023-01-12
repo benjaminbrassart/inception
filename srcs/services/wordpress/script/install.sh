@@ -10,6 +10,8 @@ for file in access error; do
 done
 
 if ! wp core is-installed; then
+    find . -mindepth 1 -delete
+    wp core download
     wp config create \
         --dbname="${WP_DB_NAME}" \
         --dbuser="${WP_DB_USER}" \

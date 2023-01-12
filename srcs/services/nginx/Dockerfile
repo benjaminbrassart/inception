@@ -18,15 +18,14 @@ RUN openssl req -x509 -newkey rsa:4096 \
 	-subj '/C=FR/ST=Ile-de-France/L=Paris/O=42/CN=bbrassar.42.fr'
 
 RUN \
-	mkdir -p ${ADMINER_DIR}/plugins /var/log/nginx /var/lib/nginx/logs && \
-	touch /var/log/nginx/error.log /var/lib/nginx/logs/error.log && \
+	mkdir -p ${ADMINER_DIR}/plugins && \
 	curl -L ${ADMINER_URL} -o ${ADMINER_DIR}/adminer.php \
 	curl -L ${ADMINER_PLUGIN_URL} -o ${ADMINER_DIR}/plugins/plugin.php \
 	curl -L ${LOGIN_SERVERS_URL} -o ${ADMINER_DIR}/plugins/login-servers.php
 
 COPY php/adminer/index.php ${ADMINER_DIR}/index.php
 COPY conf/bbrassar.conf /etc/nginx/http.d/default.conf
-
+COPY script/entry.sh /tmp/entry.sh
 COPY html/* /var/www/html/
 
-ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+ENTRYPOINT [ "sh", "/tmp/entry.sh" ]
