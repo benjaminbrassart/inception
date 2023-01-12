@@ -42,7 +42,7 @@ services:
       - net_grafana
     volumes:
       - "v_wordpress:/var/www/html/wordpress:rw"
-      - "v_adminer:/var/www/html/adminer:ro"
+      - "v_adminer:/var/www/html/adminer:rw"
       - "v_logs:/var/log:rw"
     restart: unless-stopped
     env_file: .env
