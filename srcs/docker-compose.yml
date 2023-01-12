@@ -13,6 +13,7 @@ services:
       - net_backend
     volumes:
       - "v_wordpress:/var/www/html/wordpress:rw"
+      - "v_adminer:/var/www/html/adminer:ro"
       - "v_logs:/var/log:rw"
     restart: unless-stopped
     env_file: .env
@@ -41,6 +42,7 @@ services:
       - net_grafana
     volumes:
       - "v_wordpress:/var/www/html/wordpress:rw"
+      - "v_adminer:/var/www/html/adminer:ro"
       - "v_logs:/var/log:rw"
     restart: unless-stopped
     env_file: .env
@@ -229,6 +231,8 @@ volumes:
   v_database:
     driver: local
   v_wordpress:
+    driver: local
+  v_adminer:
     driver: local
   v_grafana:
     driver: local
