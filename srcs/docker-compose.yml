@@ -228,16 +228,48 @@ services:
 volumes:
   v_logs:
     driver: local
+    name: v_logs
+    driver_opts:
+      device: /home/bbrassar/data/v_logs
+      type: volumes
+      o: bind
   v_database:
     driver: local
+    name: v_database
+    driver_opts:
+      device: /home/bbrassar/data/v_database
+      type: volumes
+      o: bind
   v_wordpress:
     driver: local
+    name: v_wordpress
+    driver_opts:
+      device: /home/bbrassar/data/v_wordpress
+      type: volumes
+      o: bind
   v_adminer:
     driver: local
+    name: v_adminer
+    driver_opts:
+      device: /home/bbrassar/data/v_adminer
+      type: volumes
+      o: bind
   v_grafana:
     driver: local
+    name: v_grafana
+    driver_opts:
+      device: /home/bbrassar/data/v_grafana
+      type: volumes
+      o: bind
   v_prometheus:
     driver: local
+    name: v_prometheus
+    driver_opts:
+      device: /home/bbrassar/data/v_prometheus
+      type: volumes
+      o: bind
+
+# ---------------------------------------------------------------------------- #
 
 networks:
   net_backend: {}
