@@ -6,7 +6,7 @@
 #    By: bbrassar <bbrassar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/04 15:59:19 by bbrassar          #+#    #+#              #
-#    Updated: 2023/01/17 01:14:31 by bbrassar         ###   ########.fr        #
+#    Updated: 2023/01/17 01:18:17 by bbrassar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ all: build
 
 # build and create containers, without starting them
 build:
-	mkdir -p $(shell yq -P '.volumes[].driver_opts.device' docker-compose.yml)
+	@mkdir -vp $(shell yq -P '.volumes[].driver_opts.device' $(DIR_SRC)/docker-compose.yml)
 	$(COMPOSE) up --build --no-start
 
 # clear volumes
