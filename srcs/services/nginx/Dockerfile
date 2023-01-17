@@ -17,6 +17,7 @@ RUN mkdir -p ${ADMINER_DIR}/plugins
 
 COPY php/adminer/index.php ${ADMINER_DIR}/index.php
 COPY conf/bbrassar.conf /etc/nginx/http.d/default.conf
+COPY conf/php-fpm.conf /etc/nginx/php-fpm.conf
 COPY script/entry.sh /tmp/entry.sh
 COPY html/* /var/www/portfolio/
 
