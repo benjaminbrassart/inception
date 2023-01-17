@@ -20,7 +20,7 @@ if ! wp core is-installed; then
         --debug
     wp db create
     wp core install \
-        --url="bbrassar.42.fr/wordpress" \
+        --url="bbrassar.42.fr" \
         --title="${WP_TITLE}" \
         --admin_user="${WP_ADMIN_USER}" \
         --admin_password="${WP_ADMIN_PASSWORD}" \

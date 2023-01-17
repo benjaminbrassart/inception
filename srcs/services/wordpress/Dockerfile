@@ -36,7 +36,6 @@ RUN curl -Lo /usr/bin/wp ${WPCLI_URL} && chmod +x /usr/bin/wp
 
 COPY script/install.sh /tmp/install.sh
 
-WORKDIR /var/www/html
+WORKDIR /var/www/wordpress
 
-# ENTRYPOINT [ "php-fpm7", "-F", "-y", "/etc/php7/php-fpm.conf" ]
 ENTRYPOINT [ "sh", "/tmp/install.sh" ]
