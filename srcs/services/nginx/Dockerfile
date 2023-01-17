@@ -2,7 +2,7 @@ FROM alpine:3.15.6
 
 LABEL maintainer="bbrassar@student.42.fr"
 
-ARG ADMINER_DIR=/var/www/html/adminer
+ARG ADMINER_DIR=/var/www/adminer
 
 RUN apk -U upgrade && apk add --no-cache nginx openssl curl
 
@@ -18,7 +18,7 @@ RUN mkdir -p ${ADMINER_DIR}/plugins
 COPY php/adminer/index.php ${ADMINER_DIR}/index.php
 COPY conf/bbrassar.conf /etc/nginx/http.d/default.conf
 COPY script/entry.sh /tmp/entry.sh
-COPY html/* /var/www/portfolio
+COPY html/* /var/www/portfolio/
 
 WORKDIR ${ADMINER_DIR}
 
