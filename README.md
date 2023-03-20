@@ -35,6 +35,15 @@
 ## Things to know
 
 ### Debian
+
+---
+
+### ⚠️ This section is deprecated ⚠️
+
+You should use `docker compose` over `docker-compose`. See [here](https://github.com/docker/compose#about-update-and-backward-compatibility) for more information.
+
+---
+
 If you are running Debian on your host machine, be aware that the version of docker-compose available in the official repository is incredibly outdated (v1.25.0-rc1, may 2019). You can however download a more recent release at their [GitHub repository](https://github.com/docker/compose/releases). For example:
 
 ```sh
